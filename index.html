@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- This is the HTML document type declaration, which specifies the document type. -->
+<html lang="en">
+<!-- This is the opening tag of the HTML element, which defines the entire HTML document. -->
+<!-- lang="en" specifies that the language of the document is English. -->
+<head>
+  <!-- This is the opening tag of the head element, which contains metadata about the HTML document. -->
+  <meta charset="UTF-8">
+  <!-- This is a meta element that specifies the character encoding of the document as UTF-8. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- This is a meta element that sets the viewport of the document to the width of the device and the initial scale of 1.0. -->
+  <title>Crocodile Facts</title>
+  <!-- This is a meta element that specifies the title of the document. -->
+  <style>
+    <!-- This is the opening tag of the style element, which contains CSS styles for the document. -->
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+    /* This rule styles the body element. It sets the font family to Arial, sans-serif, displays the content flexibly, centers the content horizontally and vertically, sets the height to 100vh (100% of the viewport height), sets the background color to #f0f0f0, and removes the default margin. */
+
+    .container {
+      width: 80%;
+      max-width: 600px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      text-align: center;
+      overflow: hidden;
+    }
+    /* This rule styles the container element. It sets the width to 80%, the maximum width to 600px, adds padding of 20px, sets the background color to #fff, adds a box shadow with a 4px offset, 8px blur, and 0.1 opacity, sets the border radius to 8px, centers the text, and hides the overflow. */
+
+    .fact {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    /* This rule styles the fact element. It sets the font size to 1.2em, adds a margin-bottom of 20px, prevents the text from wrapping, hides the overflow, and adds an ellipsis to the end of the text if it overflows. */
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    /* This rule styles the button element. It sets the padding to 10px 20px, the font size to 1em, the text color to #fff, the background color to #007bff, removes the border, adds a border radius of 5px, sets the cursor to a pointer, and adds a transition for the transform property with a duration of 0.3s and an ease timing function. */
+
+    button:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    /* This rule styles the button element when it is hovered over. It adds a box shadow with a 4px offset, 8px blur, and 0.2 opacity. */
+
+    button.move {
+      position: relative;
+    }
+    /* This rule styles the button element when it has the class "move". It sets the position to relative. */
+
+    button.move:hover {
+      transform: translateX(20px);
+    }
+    /* This rule styles the button element when it has the class "move" and is hovered over. It transforms the button by translating it 20px to the right. */
+  </style>
+  <!-- This is the closing tag of the style element. -->
+</head>
+<!-- This is the closing tag of the head element. -->
+<body>
+  <!-- This is the opening tag of the body element, which contains the content of the HTML document. -->
+  <div class="container">
+    <!-- This is the opening tag of the container element. -->
+    <div class="fact">Hover over the button to start!</div>
+    <!-- This is a div element with the class "fact" that displays the text "Hover over the button to start!". -->
+    <button>Show Random Fact</button>
+    <!-- This is a button element that displays the text "Show Random Fact". -->
+  </div>
+  <!-- This is the closing tag of the container element. -->
+  <script>
+    <!-- This is the opening tag of the script element, which contains JavaScript code for the document. -->
+    const facts = [
+      "Crocodiles are large aquatic reptiles that live throughout the tropics in Africa, Asia, the Americas, and Australia.",
+      "They are members of the order Crocodylia, which also includes alligators, caimans, and gharials.",
+      "Crocodiles have a V-shaped snout, while alligators have a U-shaped snout.",
+      "They are carnivorous and have a powerful bite, capable of taking down large prey.",
+      "Crocodiles can live both in freshwater and saltwater environments.",
+      "They have a lifespan of 35 to 75 years, depending on the species.",
+      "Crocodiles are known for their stealth and patience, often waiting hours or even days for the perfect moment to strike.",
+      "They have a four-chambered heart, which is more similar to birds and mammals than to other reptiles.",
+      "Crocodiles communicate with each other through vocalizations, such as growls, hisses, and roars.",
+      "They are excellent swimmers, using their tails to propel themselves through the water."
+    ];
+    /* This is an array of strings that contains facts about crocodiles. */
+
+    let attemptCount = 0;
+    /* This is a variable that stores the number of times the user has attempted to click the button. */
+    const maxAttempts = 3;
+    /* This is a constant that stores the maximum number of attempts allowed before the random fact is displayed. */
+
+    document.addEventListener('DOMContentLoaded', () => {
+      /* This is an event listener that listens for the DOMContentLoaded event. This event is fired when the HTML document has been fully parsed and loaded. */
+      const factContainer = document.querySelector('.fact');
+      /* This is a variable that stores the DOM element with the class "fact". */
+      const button = document.querySelector('button');
+      /* This is a variable that stores the DOM element that is a button. */
+      button.addEventListener('mouseover', () => {
+       /* This is an event listener that listens for the mouseover event on the button. This event is fired when the mouse pointer is moved over the button. */
+       if (attemptCount < maxAttempts) {
+         /* If the number of attempts is less than the maximum attempts, add the class "move" to the button. */
+         button.classList.add('move');
+       }
+      });
+
+      button.addEventListener('click', () => {
+        /* This is an event listener that listens for the click event on the button. This event is fired when the button is clicked. */
+        if (attemptCount >= maxAttempts) {
+          /* If the number of attempts is greater than or equal to the maximum attempts, display the random fact. */
+          displayRandomFact(factContainer);
+        } else {
+          /* Otherwise, increment the number of attempts and remove the "move" class from the button if the maximum attempts have been reached. */
+          attemptCount++;
+          if (attemptCount >= maxAttempts) {
+            button.classList.remove('move');
+          }
+        }
+      });
+    });
+
+    function displayRandomFact(container) {
+      /* This function displays a random fact in the given container. */
+      const randomIndex = Math.floor(Math.random() * facts.length);
+      /* This generates a random index within the range of the facts array. */
+      container.textContent = facts[randomIndex];
+      /* This sets the text content of the container to the fact at the random index. */
+    }
+  </script>
+  <!-- This is the closing tag of the script element. -->
+</body>
+<!-- This is the closing tag of the body element. -->
+</html>
+<!-- This is the closing tag of the HTML element. -->
